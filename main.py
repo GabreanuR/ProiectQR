@@ -7,6 +7,7 @@ import copy
 
 # Scriere cod QR
 
+import os
 import reedsolo
 from PIL import Image
 import numpy as np
@@ -66,8 +67,6 @@ def este_zona_rezervata(x, y, dim, version):
         return False
     return False
 
-
-# extragem din PNG doar bitii de care avem nevoie
 # extragem doar bitii de care avem nevoie
 def extrage_bits_qr(mat, dim_qr, biti, version):
     nr = 0
@@ -83,8 +82,6 @@ def extrage_bits_qr(mat, dim_qr, biti, version):
         i = aux - 1 if directie == -1 else 0  # Pornim de jos sau de sus
         while (i >= 0 and directie == -1) or (i < aux and directie == 1):
             for col in [j, j - 1]:
-                # if dim_qr == len(qr_bits):
-                #     print(dim_qr, len(qr_bits))
                 nr += 1
                 if not (
                         (i >= aux - 8 and col <= 8) or
@@ -94,7 +91,6 @@ def extrage_bits_qr(mat, dim_qr, biti, version):
                         (aux - 9 <= i <= aux - 5 and aux - 9 <= col <= aux - 5 and aux != 21 and aux != 41)
                 ):
                     if este_zona_rezervata(i, col, aux, version) == False:
-                        # if version == 6 and matrix[i][col]==0:
                         qr_bits.append(mat[i][col])
                         nr -= 1
 
@@ -917,6 +913,10 @@ def scrierecodQR():
 def citirecodQR():
     print()
     fisier = input("Fisierul pe care doresti sa il transformi in sir de caractere: ")
+
+    if not os.path.exists(fisier):
+        print(f"Eroare: Fisierul '{fisier}' nu exista.")
+        return
 
     scale = detecteaza_scale(fisier)
 
