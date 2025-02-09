@@ -74,5 +74,4 @@ Procesul de citire a unui cod QR include următorii pași:
 
 ---
 
-Acest document oferă o descriere clară a procesului de generare și citire a codurilor QR, împreună cu referințele necesare pentru implementare. 
 
